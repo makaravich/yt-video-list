@@ -72,15 +72,23 @@ require plugin_dir_path(__FILE__) . 'includes/imca-ytf-settings.php';
 /**
  * Autoupdate
  */
-if ((string) get_option('my_licence_key') !== '1') {
-	include_once plugin_dir_path(__FILE__) . '/includes/class-pd-updater.php';
-
-	$updater = new PDUpdater(__FILE__);
-	$updater->set_username('makaravich');
-	$updater->set_repository('yt-video-list');
-	$updater->authorize('bda51befd94c8fb68027a96587dc30a06c8d4d2c');
-	$updater->initialize();
+if (is_admin()) { // note the use of is_admin() to double check that this is happening in the admin
+	$config = array(
+		'imca-youtube-feed' => plugin_basename(__FILE__), // this is the slug of your plugin
+		'yt-video-list' => 'plugin-name', // this is the name of the folder your plugin lives in
+		'api_url' => 'https://api.github.com/repos/makaravich/yt-video-list', // the GitHub API url of your GitHub repo
+		'raw_url' => 'https://raw.github.com/makaravich/yt-video-list/main', // the GitHub raw url of your GitHub repo
+		'github_url' => 'https://github.com/makaravich/yt-video-list', // the GitHub url of your GitHub repo
+		'zip_url' => 'https://github.com/makaravich/yt-video-list/zipball/main', // the zip url of the GitHub repo
+		'sslverify' => true, // whether WP should check the validity of the SSL cert when getting an update, see https://github.com/jkudish/WordPress-GitHub-Plugin-Updater/issues/2 and https://github.com/jkudish/WordPress-GitHub-Plugin-Updater/issues/4 for details
+		'requires' => '3.0', // which version of WordPress does your plugin require?
+		'tested' => '3.3', // which version of WordPress is your plugin tested up to?
+		'readme' => 'README.md', // which file to use as the readme for the version number
+		'access_token' => 'bda51befd94c8fb68027a96587dc30a06c8d4d2c', // Access private repositories by authorizing under Plugins > GitHub Updates when this example plugin is installed
+	);
+	new WP_GitHub_Updater($config);
 }
+
 
 /**
  * Begins execution of the plugin.
