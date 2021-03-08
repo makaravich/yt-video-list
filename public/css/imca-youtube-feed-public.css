@@ -1,0 +1,197 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+
+.imca-vl-single-video {
+    width: calc(20% - 4px);
+    display: inline-block;
+    vertical-align: top;
+    background-color: white;
+    cursor: pointer;
+    height: 452px;
+    overflow-y: hidden;
+    margin-bottom: 0.5em;
+}
+
+/* 5 columns*/
+@media (min-width: 1200px) {
+    .imca-vl-single-video {
+        width: calc(20% - 4px);
+    }
+}
+
+/* 4 columns*/
+@media (min-width: 920px) and (max-width: 1199px) {
+    .imca-vl-single-video {
+        width: calc(25% - 4px);
+    }
+
+    .imca-vl-single-video .descript-wrapper p,
+    .imca-vl-single-video .descript-wrapper h4 {
+        font-size: 14px;
+    }
+}
+
+/* 3 columns*/
+@media (min-width: 720px) and (max-width: 919px) {
+    .imca-vl-single-video {
+        width: calc(33.3333% - 4px);
+    }
+
+    .imca-vl-single-video .descript-wrapper p,
+    .imca-vl-single-video .descript-wrapper h4 {
+        font-size: 14px;
+    }
+}
+
+/* 2 columns*/
+@media (min-width: 500px) and (max-width: 719px) {
+    .imca-vl-single-video {
+        width: calc(50% - 4px);
+    }
+
+    .imca-vl-single-video .descript-wrapper p,
+    .imca-vl-single-video .descript-wrapper h4 {
+        font-size: 14px;
+    }
+}
+
+/* 1 column*/
+@media (max-width: 499px) {
+    .imca-vl-single-video {
+        width: 100%;
+    }
+
+    .imca-vl-single-video .descript-wrapper p,
+    .imca-vl-single-video .descript-wrapper h4 {
+        font-size: 14px;
+    }
+}
+
+.imca-vl-single-video .single-video-picture, .imca-vl-single-video .img-wrapper {
+    width: 100%;
+}
+
+.imca-vl-single-video .img-wrapper {
+    position: relative;
+}
+
+.imca-vl-single-video .img-wrapper .yt-play-wrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.imca-vl-single-video .img-wrapper .yt-play-wrapper .youtube-play {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.imca-vl-single-video .descript-wrapper {
+    width: 100%;
+    padding: 0 1em;
+}
+
+.imca-vl-single-video .descript-wrapper h4 {
+    color: black;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+
+.nav-buttons {
+    width: 100%;
+    text-align: center;
+    padding-top: 1em;
+}
+
+.nav-buttons a {
+    margin: 0 0.5em;
+    padding: 0.5em 1.5em;
+    background-color: white;
+
+}
+
+.nav-buttons a.enabled {
+    color: black;
+    font-weight: bold;
+}
+
+.nav-buttons a.disabled {
+    color: gray;
+    cursor: default;
+}
+
+.descript-wrapper p {
+    color: black;
+}
+
+.stat-wrapper {
+    color: black;
+    font-size: 13px;
+    padding: 0 0.25em;
+}
+
+.imca-vl-single-video .duration {
+    position: absolute;
+    color: white;
+    right: 0;
+    bottom: 0;
+    font-weight: bold;
+    background-color: black;
+    padding: 0 0.25em;
+    font-size: 13px;
+}
+
+.imca-cinema {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.95);
+}
+
+.imca-cinema .cinema-close {
+    position: absolute;
+    top: 5vh;
+    right: 2em;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.imca-cinema-video-wrapper {
+    width: 80vw;
+    min-height: 80vh;
+    height: 80vh;
+    margin: auto;
+    position: relative;
+    top: 10vh;
+}
+
+.imca-cinema-video-wrapper iframe {
+    width: 100%;
+    height: 100%;
+}
+
+.imca-vl-single-video .stat-wrapper img {
+    margin-left: 0.5em;
+}
+
+.imca-vl-single-video .stat-wrapper .rec-date,
+.imca-vl-single-video .stat-wrapper .view-count {
+    padding: 0 0.5em;
+    border-right: solid 1px black;
+}
+
+.imca-vl-single-video .stat-wrapper .like-count {
+    padding: 0 0.5em;
+}
