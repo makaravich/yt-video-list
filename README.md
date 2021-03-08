@@ -1,3 +1,3 @@
 # yt-video-list
 
-~Current Version:1.0.3~
+~Current Version:1.0.4~
