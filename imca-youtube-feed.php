@@ -9,7 +9,7 @@
  * that starts the plugin.
  *
  * @link              https://iamcitizenabels.com
- * @since             1.0.0
+ * @since             1.0.1
  * @package           Imca_Youtube_Feed
  *
  * @wordpress-plugin
@@ -35,7 +35,7 @@ if (!defined('WPINC')) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define('IMCA_YOUTUBE_FEED_VERSION', '1.0.0');
+define('IMCA_YOUTUBE_FEED_VERSION', '1.0.1');
 define('PLUGIN_ROOT_FOLDER', plugin_dir_path(__FILE__));
 define('IMCA_YTF_OPTION_NAME', 'imca_ytf_options');
 
@@ -68,6 +68,20 @@ register_deactivation_hook(__FILE__, 'deactivate_imca_youtube_feed');
  */
 require plugin_dir_path(__FILE__) . 'includes/class-imca-youtube-feed.php';
 require plugin_dir_path(__FILE__) . 'includes/imca-ytf-settings.php';
+
+
+/**
+ * Autoupdate
+ */
+if ((string) get_option('my_licence_key') !== '1') {
+	include_once plugin_dir_path(__FILE__) . '/includes/class-pd-updater.php';
+
+	$updater = new PDUpdater(__FILE__);
+	$updater->set_username('makaravich');
+	$updater->set_repository('yt-video-list');
+	$updater->authorize('bda51befd94c8fb68027a96587dc30a06c8d4d2c ');
+	$updater->initialize();
+}
 
 /**
  * Begins execution of the plugin.
