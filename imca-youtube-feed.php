@@ -68,6 +68,7 @@ register_deactivation_hook(__FILE__, 'deactivate_imca_youtube_feed');
  */
 require plugin_dir_path(__FILE__) . 'includes/class-imca-youtube-feed.php';
 require plugin_dir_path(__FILE__) . 'includes/imca-ytf-settings.php';
+require plugin_dir_path(__FILE__) . 'includes/class-wp-github-updater.php';
 
 /**
  * Autoupdate
