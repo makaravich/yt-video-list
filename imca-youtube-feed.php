@@ -75,8 +75,8 @@ require plugin_dir_path(__FILE__) . 'includes/class-wp-github-updater.php';
  */
 if (is_admin()) { // note the use of is_admin() to double check that this is happening in the admin
 	$config = array(
-		'imca-youtube-feed' => plugin_basename(__FILE__), // this is the slug of your plugin
-		'yt-video-list' => 'plugin-name', // this is the name of the folder your plugin lives in
+		'slug' => plugin_basename(__FILE__), // this is the slug of your plugin
+		'proper_folder_name' => 'yt-video-list', // this is the name of the folder your plugin lives in
 		'api_url' => 'https://api.github.com/repos/makaravich/yt-video-list', // the GitHub API url of your GitHub repo
 		'raw_url' => 'https://raw.github.com/makaravich/yt-video-list/main', // the GitHub raw url of your GitHub repo
 		'github_url' => 'https://github.com/makaravich/yt-video-list', // the GitHub url of your GitHub repo
