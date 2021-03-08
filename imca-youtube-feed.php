@@ -9,7 +9,7 @@
  * that starts the plugin.
  *
  * @link              https://iamcitizenabels.com
- * @since             1.0.1
+ * @since             1.0.0
  * @package           Imca_Youtube_Feed
  *
  * @wordpress-plugin
@@ -35,7 +35,7 @@ if (!defined('WPINC')) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define('IMCA_YOUTUBE_FEED_VERSION', '1.0.0');
+define('IMCA_YOUTUBE_FEED_VERSION', '1.0.1');
 define('PLUGIN_ROOT_FOLDER', plugin_dir_path(__FILE__));
 define('IMCA_YTF_OPTION_NAME', 'imca_ytf_options');
 
