@@ -276,8 +276,7 @@ class ImcaYoutubeFeedCore
             ];
         }
 
-        $paged = $_REQUEST['page_no'] ? $_REQUEST['page_no'] : 1;
-        //echo 'We are on the page: ' . $paged;
+        if (isset($_REQUEST['page_no'])) $paged = $_REQUEST['page_no']; else $paged = 1;
 
         if ($args['page'] !== 0 && $paged) $args['page'] = (int)$paged - 1;
 
