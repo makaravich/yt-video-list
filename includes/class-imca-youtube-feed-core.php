@@ -350,8 +350,11 @@ class ImcaYoutubeFeedCore
                 </div>
 
                 <div class="stat-wrapper">
-                    <?php echo $this->get_icon('clock', [13, 13]) ?>
-                    <span class="rec-date"><?php echo $this->to_time_ago($video->stat->recordingDetails->recordingDate) ?></span>
+                    <?php
+                    if (isset($video->stat->recordingDetails->recordingDate)) :
+                        echo $this->get_icon('clock', [13, 13]) ?>
+                        <span class="rec-date"><?php echo $this->to_time_ago($video->stat->recordingDetails->recordingDate) ?></span>
+                    <?php endif; ?>
 
                     <?php echo $this->get_icon('view', [13, 13]) ?>
                     <span class="view-count"><?php echo $video->stat->statistics->viewCount ?></span>
