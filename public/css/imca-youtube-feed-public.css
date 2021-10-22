@@ -195,3 +195,19 @@
 .imca-vl-single-video .stat-wrapper .like-count {
     padding: 0 0.5em;
 }
+
+/* Playlist Title */
+.playlist-title {
+    font-size: 24px;
+    color: #ffffff;
+    font-family: Open Sans, sans-serif;
+    font-weight: 700;
+    font-style: normal
+}
+
+.playlist-title .pl-left,
+.playlist-title .pl-right {
+    display:inline-block;
+    width: calc(50% - 4px);
+    vertical-align: top;
+}
