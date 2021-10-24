@@ -225,7 +225,7 @@ class ImcaYoutubeFeedCore
 
             $playlist = $this->call_youtube_api( 'playlists', [ 'part' => 'snippet', 'id' => $playlist_id ] );
 
-            foreach ($f_videos->items as $f_video) {
+            foreach ( $f_videos->items as $f_video ) {
                 $f_video->stat = $this->get_video_stat( $f_video->snippet->resourceId->videoId );
             }
 
@@ -321,10 +321,10 @@ class ImcaYoutubeFeedCore
             $title = $playlist[ 'meta' ]->items[ 0 ]->snippet->title;
 
             $this->render_list_header( $title, $playlist[ 'meta' ]->items[ 0 ]->id );
-            foreach ( $playlist['videos']->items as $video ) {
+            foreach ( $playlist[ 'videos' ]->items as $video ) {
                 //$video->stat = $this->get_video_stat( $video->snippet->resourceId->videoId );
                 echo $this->render_single_video( $video );
-               // echo '***';
+                // echo '***';
             }
         }
         ?>
@@ -513,6 +513,8 @@ class ImcaYoutubeFeedCore
      */
     private function covtime( $youtube_time )
     {
+        if ( !$youtube_time ) return '';
+
         $di     = new DateInterval( $youtube_time );
         $string = '';
 

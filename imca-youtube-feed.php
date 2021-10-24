@@ -16,7 +16,7 @@
  * Plugin Name:       #IMCA YouTube Feed
  * Plugin URI:        https://iamcitizenabels.com
  * Description:       Allows to display YouTube videos with pagination.
- * Version:           1.1.12
+ * Version:           1.1.13
  * Author:            Dzmitry Makarski
  * Author URI:        https://iamcitizenabels.com
  * License:           GPL-2.0+
