@@ -3,6 +3,19 @@
 
 class ImcaYoutubeFeedCore
 {
+    /**
+     * @var array
+     */
+    protected array $featuredPlaylists = [
+        'PLS1zXxHhA212fso2CBuBmNNMycOK_E9P2',
+        'PLS1zXxHhA211AkfqRx91Kqa9pHnraiKiq',
+        'PLS1zXxHhA2119uhrIZUlZjqT-NuIa79xB',
+        'PLS1zXxHhA213l__BRDoNcA2oiZLx5X8Gp',
+        'PLS1zXxHhA212d3vF1F1Lm81j0-ED2N4IB',
+        'PLS1zXxHhA210vpZ3bdX2gtzGgp4Y90nI6',
+    ];
+
+
     private function get_settings( $name )
     {
         $val = get_option( IMCA_YTF_OPTION_NAME );
@@ -185,6 +198,7 @@ class ImcaYoutubeFeedCore
     private function build_playlist()
     {
         $opt_videos = [];
+        $featured   = [];
 
         $next_page = 1;
 
@@ -200,8 +214,35 @@ class ImcaYoutubeFeedCore
             }
         endwhile;
 
-        $opt[ 'videos' ]      = $opt_videos;
-        $opt[ 'last_update' ] = time();
+        foreach ( $this->featuredPlaylists as $playlist_id ) {
+            $request_params = [
+                'part'       => 'snippet',
+                'playlistId' => $playlist_id,
+                'maxResults' => $this->get_settings( 'videos_per_line' ),
+            ];
+
+            $f_videos = $this->call_youtube_api( 'playlistItems', $request_params );
+
+            $playlist = $this->call_youtube_api( 'playlists', [ 'part' => 'snippet', 'id' => $playlist_id ] );
+
+            foreach ($f_videos->items as $f_video) {
+                $f_video->stat = $this->get_video_stat( $f_video->snippet->resourceId->videoId );
+            }
+
+            $featured[] = [
+                'videos' => $f_videos,
+                'meta'   => $playlist,
+            ];
+
+            //$this->write_log( $featured );
+
+        }
+
+        $opt = [
+            'videos'      => $opt_videos,
+            'featured'    => $featured,
+            'last_update' => time(),
+        ];
 
         update_option( $this->get_option_name(), $opt );
     }
@@ -227,14 +268,14 @@ class ImcaYoutubeFeedCore
      * Returns all saved video items data
      * @return array
      */
-    private function get_all_video_items(): array
+    private function get_all_video_items( $list_type = 'videos' ): array
     {
         $this->update_playlist();
         $opt = get_option( $this->get_option_name() );
 
         //$this->write_log( $opt );
 
-        return $opt[ 'videos' ];
+        return $opt[ $list_type ];
     }
 
     /**
@@ -272,31 +313,18 @@ class ImcaYoutubeFeedCore
 
     private function render_featured_playlists(): string
     {
-        $playlists = [
-            'PLS1zXxHhA212fso2CBuBmNNMycOK_E9P2',
-            'PLS1zXxHhA211AkfqRx91Kqa9pHnraiKiq',
-            'PLS1zXxHhA2119uhrIZUlZjqT-NuIa79xB',
-            'PLS1zXxHhA213l__BRDoNcA2oiZLx5X8Gp',
-            'PLS1zXxHhA212d3vF1F1Lm81j0-ED2N4IB',
-            'PLS1zXxHhA210vpZ3bdX2gtzGgp4Y90nI6',
-        ];
+        $featured = $this->get_all_video_items( 'featured' );
+        //$this->write_log( $featured );
         ob_start();
-        foreach ( $playlists as $playlist_id ) {
-            $request_params = [
-                'part'       => 'snippet',
-                'playlistId' => $playlist_id,
-                'maxResults' => $this->get_settings( 'videos_per_line' ),
-            ];
+        foreach ( $featured as $playlist ) {
 
-            $res = $this->call_youtube_api( 'playlistItems', $request_params );
+            $title = $playlist[ 'meta' ]->items[ 0 ]->snippet->title;
 
-            $playlist = $this->call_youtube_api( 'playlists', [ 'part' => 'snippet', 'id' => $playlist_id ] );
-            $title    = $playlist->items[ 0 ]->snippet->title;
-
-            $this->render_list_header($title, $playlist_id);
-            foreach ( $res->items as $video ) {
-                $video->stat = $this->get_video_stat( $video->snippet->resourceId->videoId );
+            $this->render_list_header( $title, $playlist[ 'meta' ]->items[ 0 ]->id );
+            foreach ( $playlist['videos']->items as $video ) {
+                //$video->stat = $this->get_video_stat( $video->snippet->resourceId->videoId );
                 echo $this->render_single_video( $video );
+               // echo '***';
             }
         }
         ?>
@@ -332,7 +360,7 @@ class ImcaYoutubeFeedCore
 
         //$this->write_log( $args );
 
-        $this->write_log( "Current page: {$args['page']}" );
+        //$this->write_log( "Current page: {$args['page']}" );
         if ( $args[ 'page' ] == $this->get_last_page_num() ) {
 
             return $this->render_featured_playlists();
@@ -353,7 +381,7 @@ class ImcaYoutubeFeedCore
         $items_per_page = $this->get_items_on_page_count();
 
         $count = ceil( count( $videos ) / $items_per_page );
-        $this->write_log( $count );
+        //$this->write_log( $count );
 
         return (int)$count;
     }
